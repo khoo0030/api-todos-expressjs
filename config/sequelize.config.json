@@ -1,0 +1,43 @@
+{
+  "development": {
+    "username": "homestead",
+    "password": "secret",
+    "database": "homestead",
+    "host": "db",
+    "dialect": "mysql",
+    "migrationStorageTableName": "migrations",
+    "define": {
+      "underscored": true,
+      "freezeTableName": false,
+      "charset": "utf8mb4",
+      "dialectOptions": {
+        "collate": "utf8mb4_unicode_ci"
+      },
+      "timestamps": true
+    }
+  },
+  "test": {
+    "username": "homestead",
+    "password": "secret",
+    "database": "homestead",
+    "host": "db",
+    "dialect": "mysql",
+    "migrationStorageTableName": "migrations",
+    "define": {
+      "underscored": true,
+      "freezeTableName": false,
+      "charset": "utf8mb4",
+      "dialectOptions": {
+        "collate": "utf8mb4_unicode_ci"
+      },
+      "timestamps": true
+    }
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
