@@ -1,16 +1,24 @@
 const express = require('express');
 const app = express();
+const {Todo} = require('./models');
 
 // import middleware
 
 // import routes
-app.get('/', (req, res) => {
-  return res.json({message: 'hello world!'});
+app.get('/', async (req, res) => {
+  const todos = await Todo.findAll();
+  // return res.json({message: 'hello world!'});
+  return res.status(200).json(todos);
 });
 
 // listener
-const port = process.env.PORT || 3000;
+let port = 3000;
+if (process.env.NODE_ENV === 'test') {
+  port = 2999;
+}
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
+
+module.exports = server;
