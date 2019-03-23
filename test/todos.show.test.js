@@ -37,4 +37,17 @@ describe('/get show todos', () => {
 
     done();
   });
+
+  it('should 404 when todo does not exist', function (done) {
+    // given a todo created earlier
+    // when we call the endpoint to get a todo which does not exist
+    chai.request(app)
+    .get(`${path}/${todo.id + 1}`)
+    .end((err, res) => {
+      // we expect a 404 http response
+      assert.equal(res.status, httpStatus.NOT_FOUND);
+    });
+
+    done();
+  });
 });

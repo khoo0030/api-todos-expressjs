@@ -41,4 +41,32 @@ describe('/put update todos', () => {
 
     done();
   });
+
+  it('should 404 when todo does not exist', function (done) {
+    // given a todo created earlier
+    // when we call the endpoint to update a todo which does not exist
+    chai.request(app)
+    .get(`${path}/${todo.id + 1}`)
+    .end((err, res) => {
+      // we expect a 404 http response
+      assert.equal(res.status, httpStatus.NOT_FOUND);
+    });
+
+    done();
+  });
+
+  it('should 422', function (done) {
+    // when we call the endpoint to update a todo with request body where title is null
+    chai.request(app)
+    .post(path)
+    .send({
+      title: null
+    })
+    .end((err, res) => {
+      // we expect a 422 http response
+      assert.equal(res.status, httpStatus.UNPROCESSABLE_ENTITY);
+    });
+
+    done();
+  });
 });
