@@ -1,7 +1,7 @@
 process.env.NODE_ENV = "test";
 
-let app = require('../../../../index');
-const {Todo} = require('../../../../models');
+let app = require('../index');
+const {Todo} = require('../models');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const assert = chai.assert;
@@ -11,22 +11,18 @@ const path = '/api/v1/todos';
 let todo1;
 let todo2;
 
-describe('/GET index todos', () => {
+describe('/get index todos', () => {
   before(async function () {
-    try {
-      todo1 = await Todo.create({title: 'hello1'});
-      todo2 = await Todo.create({title: 'hello2'});
-    } catch (e) {
-      console.log(e)
-    }
+    todo1 = await Todo.create({title: 'hello1'});
+    todo2 = await Todo.create({title: 'hello2'});
   });
 
   after(async function () {
     await Todo.destroy({truncate: true});
-    app.close();
+    app.stop();
   });
 
-  it('it should get todos', function (done) {
+  it('should get todos', function (done) {
     // given 2 todos created earlier
     // when we call the endpoint to get the todos
     chai.request(app)
@@ -37,6 +33,7 @@ describe('/GET index todos', () => {
 
       // we expect to get back the 2 todos
       let data = res.body;
+
       assert.equal(data.length, 2);
 
       const todoIds = data.map(function (todo) {

@@ -1,23 +1,23 @@
 process.env.NODE_ENV = "test";
 
-let app = require('../../../../index');
-const {Todo} = require('../../../../models');
+let app = require('../index');
+const {Todo} = require('../models');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const assert = chai.assert;
 chai.use(chaiHttp);
 const path = '/api/v1/todos';
 
-describe('/POST store todo', () => {
+describe('/post store todos', () => {
   before(async function () {
   });
 
   after(async function () {
     await Todo.destroy({truncate: true});
-    app.close();
+    app.stop();
   });
 
-  it('it should store a todo', function (done) {
+  it('should store a todo', function (done) {
     // when we call the endpoint to store a todo
     chai.request(app)
     .post(path)

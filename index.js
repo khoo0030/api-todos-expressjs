@@ -7,39 +7,65 @@ app.use(express.json()); // to read request body
 
 // import routes
 app.get('/api/v1/todos', async (req, res) => {
-  const todos = await Todo.findAll();
+  let todos;
+
+  try {
+    todos = await Todo.findAll();
+  } catch (e) {
+    console.log(e);
+  }
 
   return res.status(200).json(todos);
 });
 
 app.post('/api/v1/todos', async (req, res) => {
-  const todo = await Todo.create({
-    title: req.body.title
-  });
+  let todo;
+
+  try {
+    todo = await Todo.create({title: req.body.title});
+  } catch (e) {
+    console.log(e);
+  }
 
   return res.status(201).json(todo);
 });
 
 app.get('/api/v1/todos/:id', async (req, res) => {
-  const todo = await Todo.findByPk(req.params.id);
+  let todo
+
+  try {
+    todo = await Todo.findByPk(req.params.id);
+  } catch (e) {
+    console.log(e);
+  }
 
   return res.status(200).json(todo);
 });
 
 app.put('/api/v1/todos/:id', async (req, res) => {
-  const todo = await Todo.findByPk(req.params.id);
+  let todo;
 
-  todo.title = req.body.title;
-  await todo.save();
+  try {
+    todo = await Todo.findByPk(req.params.id);
+
+    todo.title = req.body.title;
+    await todo.save();
+  } catch (e) {
+    console.log(e);
+  }
 
   return res.status(200).json(todo);
 });
 
 app.delete('/api/v1/todos/:id', async (req, res) => {
-  const todo = await Todo.findByPk(req.params.id);
+  let todo;
 
-  await todo.destroy();
-
+  try {
+    todo = await Todo.findByPk(req.params.id);
+    await todo.destroy();
+  } catch (e) {
+    console.log(e);
+  }
   return res.status(200).json(todo);
 });
 
@@ -53,4 +79,9 @@ const server = app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
+function stop() {
+  server.close();
+}
+
 module.exports = server;
+module.exports.stop = stop;
