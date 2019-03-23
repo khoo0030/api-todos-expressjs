@@ -1,75 +1,14 @@
 const express = require('express');
 const app = express();
 const helmet = require('helmet');
-const {Todo} = require('./models');
+const todos = require('./routes/api/todos');
 
-// import middleware
+// use middleware
 app.use(express.json()); // to read request body
 app.use(helmet()); // for http headers
 
-// import routes
-app.get('/api/v1/todos', async (req, res) => {
-  let todos;
-
-  try {
-    todos = await Todo.findAll();
-  } catch (e) {
-    console.log(e);
-  }
-
-  return res.status(200).json(todos);
-});
-
-app.post('/api/v1/todos', async (req, res) => {
-  let todo;
-
-  try {
-    todo = await Todo.create({title: req.body.title});
-  } catch (e) {
-    console.log(e);
-  }
-
-  return res.status(201).json(todo);
-});
-
-app.get('/api/v1/todos/:id', async (req, res) => {
-  let todo
-
-  try {
-    todo = await Todo.findByPk(req.params.id);
-  } catch (e) {
-    console.log(e);
-  }
-
-  return res.status(200).json(todo);
-});
-
-app.put('/api/v1/todos/:id', async (req, res) => {
-  let todo;
-
-  try {
-    todo = await Todo.findByPk(req.params.id);
-
-    todo.title = req.body.title;
-    await todo.save();
-  } catch (e) {
-    console.log(e);
-  }
-
-  return res.status(200).json(todo);
-});
-
-app.delete('/api/v1/todos/:id', async (req, res) => {
-  let todo;
-
-  try {
-    todo = await Todo.findByPk(req.params.id);
-    await todo.destroy();
-  } catch (e) {
-    console.log(e);
-  }
-  return res.status(200).json(todo);
-});
+// use routes
+app.use('/api/v1/todos', todos);
 
 // listener
 let port = 3000;
