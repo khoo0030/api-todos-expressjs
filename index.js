@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+const helmet = require('helmet');
 const {Todo} = require('./models');
 
 // import middleware
 app.use(express.json()); // to read request body
+app.use(helmet()); // for http headers
 
 // import routes
 app.get('/api/v1/todos', async (req, res) => {
