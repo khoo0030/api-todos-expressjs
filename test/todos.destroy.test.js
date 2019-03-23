@@ -1,6 +1,7 @@
 process.env.NODE_ENV = "test";
 
 let app = require('../index');
+const httpStatus = require('http-status-codes');
 const {Todo} = require('../models');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -27,7 +28,7 @@ describe('/delete destroy todos', () => {
     .delete(`${path}/${todo.id}`)
     .end(async (err, res) => {
       // we expect a 200 http response
-      assert.equal(res.status, 200);
+      assert.equal(res.status, httpStatus.OK);
 
       // we expect to get back the todo
       let data = res.body;

@@ -1,4 +1,5 @@
 const {Todo} = require('../../models');
+const httpStatus = require('http-status-codes');
 
 // create an express application
 const express = require('express');
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
     console.log(e);
   }
 
-  return res.status(200).json(todos);
+  return res.status(httpStatus.OK).json(todos);
 });
 
 router.post('/', async (req, res) => {
@@ -28,7 +29,7 @@ router.post('/', async (req, res) => {
     console.log(e);
   }
 
-  return res.status(201).json(todo);
+  return res.status(httpStatus.CREATED).json(todo);
 });
 
 router.get('/:id', async (req, res) => {
@@ -40,7 +41,7 @@ router.get('/:id', async (req, res) => {
     console.log(e);
   }
 
-  return res.status(200).json(todo);
+  return res.status(httpStatus.OK).json(todo);
 });
 
 router.put('/:id', async (req, res) => {
@@ -55,7 +56,7 @@ router.put('/:id', async (req, res) => {
     console.log(e);
   }
 
-  return res.status(200).json(todo);
+  return res.status(httpStatus.OK).json(todo);
 });
 
 router.delete('/:id', async (req, res) => {
@@ -67,7 +68,7 @@ router.delete('/:id', async (req, res) => {
   } catch (e) {
     console.log(e);
   }
-  return res.status(200).json(todo);
+  return res.status(httpStatus.OK).json(todo);
 });
 
 module.exports = router;

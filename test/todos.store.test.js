@@ -1,6 +1,7 @@
 process.env.NODE_ENV = "test";
 
 let app = require('../index');
+const httpStatus = require('http-status-codes');
 const {Todo} = require('../models');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -26,7 +27,7 @@ describe('/post store todos', () => {
     })
     .end((err, res) => {
       // we expect a 201 http response
-      assert.equal(res.status, 201);
+      assert.equal(res.status, httpStatus.CREATED);
 
       // we expect to get back the todo with title 'hello'
       let data = res.body;
