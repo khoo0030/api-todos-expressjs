@@ -14,6 +14,19 @@
 ## Todos App in ExpressJS
 Simple project to create a todo app in express.
 
+Work in progress. This projects serves as an example to:
+- Build a REST API in NodeJS, specifically ExpressJS with the following:
+    - MySQL as database
+    - Sequelize ORM to work with MySQL
+- Test driven development mindset:
+    - Working with Mocha and Chai test framework
+- Build in an Dockerized environment
+
+Future works may include:
+- More refactoring works
+- To introduce Repository Pattern
+- To introduce Factories Pattern
+
 ## Getting Started using Docker
 
 Quickstart guide to getting Docker-based dev environment up and running.
